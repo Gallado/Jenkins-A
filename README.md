@@ -44,3 +44,4 @@ $ npm start  # visit http://localhost:3333
 ├── .gitignore
 └── [j,t]sconfig.json
 ```
+jenkinsA-person-access-token：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
