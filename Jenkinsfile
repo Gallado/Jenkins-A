@@ -6,12 +6,12 @@ node {
 
   stage('Test') {
        echo 'Testing..'
-       sh 'xxxxxxxxx'
+       //sh 'xxxxxxxxx'
   }
 
   stage('Build') {
        echo 'Building..'
-       sh 'xxxxxxxxx'
+       //sh 'xxxxxxxxx'
   }
 
   stage('Deploy') {
