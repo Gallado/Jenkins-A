@@ -13,11 +13,11 @@ node {
        echo '开始编译、构建镜像..'
        nodejs("nodejs"){// 括号里面的名字在jenkins》系统管理》全局工具配置中设定的NodeJS的别名
               sh("node -v && npm -v")
-              /* sh "npm install -g yarn -registry=https://registry.npm.taobao.org"
-              sh "yarn -v" */
-              sh "npm install --registry=https://registry.npm.taobao.org"
-              sh "npm run build"
-              sh "NODE_OPTIONS=--max-old-space-size=4096 npm run build"
+               sh "npm install -g yarn -registry=https://registry.npm.taobao.org"
+               sh "yarn -v"
+             /*  sh "npm install --registry=https://registry.npm.taobao.org" */
+              sh "yarn run build"
+              sh "NODE_OPTIONS=--max-old-space-size=4096 yarn run build"
 
        }
 
