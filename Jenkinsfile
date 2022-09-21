@@ -15,7 +15,8 @@ node {
               sh("node -v && npm -v")
                sh "npm install -g yarn -registry=https://registry.npm.taobao.org"
                sh "yarn -v"
-             /*  sh "npm install --registry=https://registry.npm.taobao.org" */
+               sh "yarn install --pure-lockfile"
+               sh "yarn install --registry=https://registry.npm.taobao.org"
               sh "yarn run build"
               sh "NODE_OPTIONS=--max-old-space-size=4096 yarn run build"
 
