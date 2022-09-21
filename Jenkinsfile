@@ -1,7 +1,5 @@
 node {
-  tools {
-        nodejs "nodejs"
-  }
+
   stage('更新代码'){
        echo '从Github拉取代码...'
        checkout scm
@@ -9,7 +7,11 @@ node {
 
   stage('代码审查') {
        echo '代码审查..'
-       sh 'npm install'
+       nodejs("nodejs"){// 括号里面的名字在jenkins》系统管理》全局工具配置中设定的NodeJS的别名
+                 sh("node -v && npm -v")
+
+       }
+
   }
 
   /* stage('编译、构建镜像') {
