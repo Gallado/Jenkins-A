@@ -6,9 +6,10 @@ node {
 
   stage('代码审查') {
        echo '代码审查..'
+       sh 'npm -v'
   }
 
-  stage('编译、构建镜像') {
+  /* stage('编译、构建镜像') {
        echo '开始编译、构建镜像..'
        sh "npm install -g yarn -registry=https://registry.npm.taobao.org"
        sh "yarn -v"
@@ -18,8 +19,8 @@ node {
 
   stage('部署') {
        echo "开始部署"
-      /*  sh "docker rm -f $( docker ps  | awk '/jenkins-test-a/ {print $1}')" */
+       *//*  sh "docker rm -f $( docker ps  | awk '/jenkins-test-a/ {print $1}')" *//*
        sh "docker run -d --name jenkins-pipeline-a -p 4001:80 --restart=always jenkins-pipeline-a"
-  }
+  } */
 
 }
