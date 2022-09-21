@@ -1,4 +1,7 @@
 node {
+  tools {
+        nodejs "nodejs"
+  }
   stage('更新代码'){
        echo '从Github拉取代码...'
        checkout scm
@@ -6,7 +9,7 @@ node {
 
   stage('代码审查') {
        echo '代码审查..'
-       sh 'npm -v'
+       sh 'npm install'
   }
 
   /* stage('编译、构建镜像') {
