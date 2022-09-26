@@ -4,7 +4,7 @@
 def git_url = "git@github.com:Gallado/Jenkins-A.git"
 
 //Jenkins获取项目时凭证ID,此时使用的是SSH版本，在Jenkins的凭据中配置
-def git_auth = "fb353a1e-d5d5-4cb6-9b78-d7c7562ef50a"
+def git_auth = "56b55981-fae9-41e3-8b63-5e7ec9d0a9c9"
 
 //Harbor私服地址，保存Dockerfile
 //def harbor_url = "172.20.47.89:20078"
