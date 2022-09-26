@@ -26,7 +26,14 @@ node {
        echo "开始部署"
        sh "docker build -t jenkins-pipeline-a ."
        /* sh "docker rm -f $( docker ps  | awk '/jenkins-pipeline-a/ {print $1}')" */
-       sh "docker ps  -a| awk '/jenkins-pipeline-a/ {print $1}'|xargs docker rm "
+       /* sh "docker ps  -a | awk '/jenkins-pipeline-a/ {print $1}' | xargs docker rm" */
+       sh "para = docker ps  -a | awk '/jenkins-pipeline-a/ {print $1}'
+         if[! -n "$para"];then
+         echo "no continer"
+         else
+         docker rm -f $para
+       "
+
        sh "docker run -d --name jenkins-pipeline-a -p 4001:80 --restart=always jenkins-pipeline-a"
   }
 
