@@ -60,7 +60,7 @@ node {
   stage('部署') {
        echo "开始部署"
        sh "docker build -t jenkins-pipeline-a ."
-       sh "docker rm -f $( docker ps  | awk '/jenkins-pipeline-a/ {print $1}')"
+       /*sh "docker rm -f $( docker ps  | awk '/jenkins-pipeline-a/ {print $1}')"*/
        /* sh "docker ps  -a | awk '/jenkins-pipeline-a/ {print $1}' | xargs docker rm" */
 
 
