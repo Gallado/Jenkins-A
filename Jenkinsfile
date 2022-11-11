@@ -1,7 +1,9 @@
 
 //Jenkins获取项目代码git地址
-//def git_url = "git@172.20.2.149:frontend/vsuap-cloudeye.git"
 def git_url = "https://github.com/Gallado/Jenkins-A.git"
+
+
+
 
 //Jenkins获取项目时凭证ID,此时使用的是SSH版本，在Jenkins的凭据中配置
 def git_auth = "56b55981-fae9-41e3-8b63-5e7ec9d0a9c9"
@@ -58,7 +60,7 @@ node {
   stage('部署') {
        echo "开始部署"
        sh "docker build -t jenkins-pipeline-a ."
-       /* sh "docker rm -f $( docker ps  | awk '/jenkins-pipeline-a/ {print $1}')" */
+       sh "docker rm -f $( docker ps  | awk '/jenkins-pipeline-a/ {print $1}')"
        /* sh "docker ps  -a | awk '/jenkins-pipeline-a/ {print $1}' | xargs docker rm" */
 
 
