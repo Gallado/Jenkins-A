@@ -1,0 +1,76 @@
+
+//Jenkins获取项目代码git地址
+def git_url = "https://github.com/Gallado/Jenkins-A.git"
+
+
+
+
+//Jenkins获取项目时凭证ID,此时使用的是SSH版本，在Jenkins的凭据中配置
+def git_auth = "56b55981-fae9-41e3-8b63-5e7ec9d0a9c9"
+
+//Harbor私服地址，保存Dockerfile
+def harbor_url = "172.16.255.129:8443"
+
+//Harbor仓库项目名称
+def harbor_project = "vsuap"
+
+//构建镜像版本的名称
+def tag = "latest"
+
+//连接Harbor仓库时凭证ID，在Jenkins的凭据中配置
+//def harbor_auth = "675dd9aa-58d1-46a5-b30a-1a96ae65dc39"
+
+node {
+  def mvnHome
+
+  /* stage('更新代码'){
+       echo '从Github拉取代码...'
+       checkout scm
+  } */
+   stage('获取定制代码') {
+          //参数${git_url}: git地址，Jenkins中配置，此文件指定
+          //参数${git_auth}: 凭证ID，Jenkins中配置，此文件指定
+          //参数${branch}: 分支，Jenkins中配置
+          checkout([
+          $class: 'GitSCM',
+          branches: [[name: '*/${branch}']],
+          doGenerateSubmoduleConfigurations: false,
+          extensions: [],
+          submoduleCfg: [],
+          userRemoteConfigs: [[credentialsId: "${git_auth}", url: "${git_url}"]]])
+      }
+
+  stage('代码审查') {
+       echo '代码审查..'
+  }
+
+   stage('编译、构建镜像') {
+       //定义镜像名称
+       def imageName = "${project_name}:${tag}"
+       echo '开始编译、构建镜像..'
+       nodejs("nodejs"){// 括号里面的名字在jenkins》系统管理》全局工具配置中设定的NodeJS的别名
+              sh("node -v && npm -v")
+              sh "npm install -g yarn -registry=https://registry.npm.taobao.org"
+              sh "yarn -v"
+              sh "yarn install --pure-lockfile"
+              sh "yarn install --registry=https://registry.npm.taobao.org"
+              sh "yarn run build"
+              sh "NODE_OPTIONS=--max-old-space-size=4096 yarn run build"
+
+
+              sh "docker build -f Dockerfile -t jenkins-A-Harbor ."
+              //对镜像打上标签
+              sh "docker tag ${imageName} ${harbor_url}/${harbor_project}/${imageName}"
+
+              sh "docker login -u admin -p Harbor12345 ${harbor_url}"
+
+              sh "docker push ${harbor_url}/${harbor_project}/${imageName}"
+              sh "echo 镜像上传成功 "
+
+
+       }
+  }
+
+
+
+}
